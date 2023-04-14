@@ -1,9 +1,9 @@
 import { extendTheme } from "@chakra-ui/react";
 import { mode } from "@chakra-ui/theme-tools";
-import { Rubik } from "next/font/google";
+import { Inter } from "next/font/google";
 import type { Styles, GlobalStyleProps } from "@chakra-ui/theme-tools";
 
-const nextFont = Rubik({
+const nextFont = Inter({
   weight: ["500", "700"],
   subsets: ["latin"],
   display: "swap",
@@ -12,7 +12,7 @@ const nextFont = Rubik({
 const styles: Styles = {
   global: (props: GlobalStyleProps) => ({
     body: {
-      bg: mode("#f0e7db", "#202023")(props),
+      bg: mode("#f5f5f5", "#202023")(props),
     },
   }),
 };
@@ -25,7 +25,6 @@ const fonts = {
 };
 
 const colors = {
-  grassTeal: "#88ccca",
   zinc: {
     50: "#fafafa",
     100: "#f4f4f5",
@@ -38,6 +37,19 @@ const colors = {
     800: "#27272a",
     900: "#18181b",
     950: "#09090b",
+  },
+  subtext: "#a6a6a6",
+  brand: {
+    50: "#dafdff",
+    100: "#aef1ff",
+    200: "#7fe7fd",
+    300: "#51ddfb",
+    400: "#2ad3f9",
+    500: "#18b9df",
+    600: "#0490ae",
+    700: "#00677e",
+    800: "#003f4d",
+    900: "#00171d",
   },
 };
 

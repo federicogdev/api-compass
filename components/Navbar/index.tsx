@@ -12,17 +12,18 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import NavLink from "./Navlink";
+import UserDropdown from "./UserDropdown";
 
 const Links = [
-  { label: "Explore", href: "/" },
-  { label: "Rankings", href: "/" },
+  { label: "Search", href: "/" },
+  { label: "Rankings", href: "/rankings" },
 ];
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isLoading = false;
 
   return (
-    <Box bg={useColorModeValue("gray.100", "zinc.900")} px={4}>
+    <Box px={4}>
       <Container maxW="container.lg">
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
@@ -41,6 +42,8 @@ const Navbar = () => {
               <NavLink key={i} onClick={onClose} link={link} />
             ))}
           </HStack>
+
+          <UserDropdown />
         </Flex>
 
         {isOpen ? (
