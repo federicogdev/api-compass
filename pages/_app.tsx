@@ -1,16 +1,18 @@
-// import "@/styles/globals.css";
-import type { AppProps } from "next/app";
-import { ChakraProvider, Container } from "@chakra-ui/react";
+import AppLayout from "@/components/Layout/AppLayout";
+import "@/styles/globals.css";
 import theme from "@/util/chakra/theme";
-import Navbar from "@/components/Navbar";
+import { ChakraProvider } from "@chakra-ui/react";
+import { SessionProvider } from "next-auth/react";
+import type { AppProps } from "next/app";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider theme={theme}>
-      <Navbar />
-      <Container maxW="container.lg">
-        <Component {...pageProps} />
-      </Container>
-    </ChakraProvider>
+    <SessionProvider session={pageProps.session}>
+      <ChakraProvider theme={theme}>
+        <AppLayout>
+          <Component {...pageProps} />
+        </AppLayout>
+      </ChakraProvider>
+    </SessionProvider>
   );
 }

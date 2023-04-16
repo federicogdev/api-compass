@@ -12,7 +12,8 @@ const nextFont = Inter({
 const styles: Styles = {
   global: (props: GlobalStyleProps) => ({
     body: {
-      bg: mode("#f5f5f5", "#202023")(props),
+      bg: "#202023",
+      color: "f5f5f5",
     },
   }),
 };
@@ -55,7 +56,7 @@ const colors = {
 
 const config = {
   initialColorMode: "dark",
-  useSystemColorMode: true,
+  useSystemColorMode: false,
 };
 
 const theme = extendTheme({ config, styles, components, fonts, colors });

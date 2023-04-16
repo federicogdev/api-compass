@@ -1,29 +1,37 @@
-import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { ReactNode, useEffect, useState } from "react";
 import {
   Box,
-  Container,
   Flex,
+  Avatar,
   HStack,
+  Link as ChakraLink,
   IconButton,
-  Stack,
-  useColorModeValue,
+  Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
   useDisclosure,
+  Container,
+  Stack,
 } from "@chakra-ui/react";
+import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 import Image from "next/image";
+
 import Link from "next/link";
+import NavbarRight from "./NavbarRight";
 import NavLink from "./Navlink";
-import UserDropdown from "./UserDropdown";
 
 const Links = [
-  { label: "Search", href: "/" },
-  { label: "Rankings", href: "/rankings" },
+  { label: "Explore", href: "/" },
+  { label: "Rankings", href: "/rankinks" },
 ];
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const isLoading = false;
 
   return (
-    <Box px={4}>
+    <Box bg="zinc.900" px={4}>
       <Container maxW="container.lg">
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
@@ -39,11 +47,11 @@ const Navbar = () => {
 
           <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
             {Links.map((link, i) => (
-              <NavLink key={i} onClick={onClose} link={link} />
+              <NavLink key={i} link={link} />
             ))}
           </HStack>
 
-          <UserDropdown />
+          <NavbarRight />
         </Flex>
 
         {isOpen ? (

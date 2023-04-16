@@ -10,23 +10,21 @@ interface Link {
 
 interface NavLinkProps {
   link: Link;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
-const NavLink: FC<NavLinkProps> = ({ link, onClick }) => {
+const Navlink: FC<NavLinkProps> = ({ link, onClick }) => {
   const router = useRouter();
-  const LINK_COLOR = useColorModeValue("black", "white");
   return (
     <ChakraLink
       as={Link}
       px={2}
       py={1}
-      fontWeight="bold"
-      color={router.asPath === link.href ? "orange.400" : LINK_COLOR}
+      color={router.asPath === link.href ? "brand.700" : "subtext"}
       rounded={"md"}
       _hover={{
         textDecoration: "none",
-        color: "orange.400",
+        color: "brand.700",
       }}
       href={link.href}
       onClick={onClick}
@@ -36,4 +34,4 @@ const NavLink: FC<NavLinkProps> = ({ link, onClick }) => {
   );
 };
 
-export default NavLink;
+export default Navlink;
