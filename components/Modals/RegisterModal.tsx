@@ -54,6 +54,8 @@ const RegisterModal = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     control,
     handleSubmit,
@@ -69,7 +71,40 @@ const RegisterModal = () => {
     registerModal.onClose();
   };
 
-  const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {};
+  const onSubmit: SubmitHandler<RegisterFormInputs> = async (data) => {
+    setIsLoading(true);
+
+    axios
+      .post("/api/register", data)
+      .then(() => {
+        toast({
+          title: "Amazing!",
+          description: "Succesfully created your account.",
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+        });
+        signIn("credentials", {
+          ...data,
+          redirect: false,
+        });
+
+        reset();
+        registerModal.onClose();
+      })
+      .catch((error) => {
+        toast({
+          title: "Error :(",
+          description: "There was an error try again",
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
   const onToggle = () => {
     if (isSubmitting) {
