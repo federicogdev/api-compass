@@ -45,6 +45,8 @@ const LoginModal = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     control,
     handleSubmit,
@@ -61,7 +63,38 @@ const LoginModal = () => {
     loginModal.onClose();
   };
 
-  const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {};
+  const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
+    setIsLoading(true);
+
+    signIn("credentials", {
+      ...data,
+      redirect: false,
+    }).then((callback) => {
+      setIsLoading(false);
+
+      if (callback?.ok) {
+        toast({
+          title: "Amazing!",
+          description: "Succesfully logged in",
+          status: "success",
+          duration: 4000,
+          isClosable: true,
+        });
+        reset();
+        loginModal.onClose();
+      }
+
+      if (callback?.error) {
+        toast({
+          title: "Error :(",
+          description: callback.error,
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
+      }
+    });
+  };
 
   const onToggle = () => {
     if (isSubmitting) {
@@ -140,7 +173,7 @@ const LoginModal = () => {
               mt={5}
               mb={2}
               bg="brand.700"
-              isLoading={isSubmitting}
+              isLoading={isLoading}
               type="submit"
               width="full"
               // isDisabled={!isValid}
