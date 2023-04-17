@@ -205,6 +205,7 @@ const LoginModal = () => {
                 background: "brand.800",
                 borderColor: "brand.800",
               }}
+              onClick={() => signIn("google")}
             >
               <Center>
                 <Text>Sign in with Google</Text>
@@ -222,6 +223,7 @@ const LoginModal = () => {
                 background: "brand.800",
                 borderColor: "brand.800",
               }}
+              onClick={() => signIn("github")}
             >
               <Center>
                 <Text>Sign in with Github</Text>

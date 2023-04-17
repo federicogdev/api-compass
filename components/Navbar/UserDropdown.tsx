@@ -12,11 +12,11 @@ import { signOut } from "next-auth/react";
 import React from "react";
 import { FiLogOut } from "react-icons/fi";
 
-type UserDropdownProps = {
-  user: any;
-};
+import { useSession } from "next-auth/react";
 
-const UserDropdown = ({ user }: UserDropdownProps) => {
+const UserDropdown = () => {
+  const { status, data: session } = useSession();
+
   return (
     <Menu placement="bottom-end">
       <MenuButton
@@ -28,8 +28,7 @@ const UserDropdown = ({ user }: UserDropdownProps) => {
       >
         <Avatar
           size={"sm"}
-          // src={user.image ? user.image : "/assets/user.png"}
-          src={"/assets/user.png"}
+          src={session?.user.image ? session.user.image : "/assets/user.png"}
         />
       </MenuButton>
       <MenuList alignItems={"center"} bg="zinc.900" padding={2}>
@@ -37,13 +36,12 @@ const UserDropdown = ({ user }: UserDropdownProps) => {
         <Center>
           <Avatar
             size={"2xl"}
-            // src={user.image ? user.image : "/assets/user.png"}
-            src={"/assets/user.png"}
+            src={session?.user.image ? session.user.image : "/assets/user.png"}
           />
         </Center>
         <br />
         <Center>
-          <p>username</p>
+          <p>{session?.user.name}</p>
         </Center>
         <br />
         <MenuDivider />

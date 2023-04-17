@@ -3,25 +3,25 @@ import { AddIcon } from "@chakra-ui/icons";
 import { Button, Box, Flex } from "@chakra-ui/react";
 import React from "react";
 import UserDropdown from "./UserDropdown";
+import { useSession } from "next-auth/react";
 
 type Props = {};
 
 const NavbarRight = (props: Props) => {
-  const isLoading = false;
-  const currentUser = false;
+  const { status, data: session } = useSession();
 
   const loginModal = useLoginModal();
 
   return (
     <>
-      {isLoading ? (
+      {status === "loading" ? (
         <Box />
-      ) : !!currentUser ? (
+      ) : !!session?.user ? (
         <Flex alignItems="center">
           <Button variant="solid" bg="brand.700" size="sm" mr={4}>
             <AddIcon />
           </Button>
-          <UserDropdown user={null} />
+          <UserDropdown />
         </Flex>
       ) : (
         <Button

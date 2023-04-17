@@ -15,7 +15,7 @@ const AppLayout: FC<IAppLayoutProps> = ({ children }) => {
       <LoginModal />
       <RegisterModal />
       <Container maxW="container.lg">
-        <Box pt="7rem">{children}</Box>
+        <Box py={2}>{children}</Box>
       </Container>
     </>
   );
