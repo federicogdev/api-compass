@@ -85,14 +85,16 @@ const RegisterModal = () => {
     <Modal isOpen={registerModal.isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader bg="gray.900" fontSize="2xl">
+        <ModalHeader bg="zinc.900" fontSize="2xl">
           Register
         </ModalHeader>
         <ModalCloseButton />
-        <ModalBody py={5} bg="gray.900">
+        <ModalBody py={5} bg="zinc.900">
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl isInvalid={!!errors.email}>
-              <FormLabel color="subtext">Email address</FormLabel>
+              <FormLabel fontSize="10pt" color="subtext">
+                Email address
+              </FormLabel>
               <Controller
                 name="email"
                 control={control}
@@ -109,7 +111,9 @@ const RegisterModal = () => {
             </FormControl>
 
             <FormControl isInvalid={!!errors.username} mt={4}>
-              <FormLabel color="subtext">Username</FormLabel>
+              <FormLabel fontSize="10pt" color="subtext">
+                Username
+              </FormLabel>
               <Controller
                 name="username"
                 control={control}
@@ -126,7 +130,9 @@ const RegisterModal = () => {
             </FormControl>
 
             <FormControl isInvalid={!!errors.password} mt={4}>
-              <FormLabel color="subtext">Password</FormLabel>
+              <FormLabel fontSize="10pt" color="subtext">
+                Password
+              </FormLabel>
               <InputGroup>
                 <Controller
                   name="password"
