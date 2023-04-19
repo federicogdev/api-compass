@@ -15,9 +15,9 @@ import {
   useDisclosure,
   Container,
   Stack,
+  Image,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-import Image from "next/image";
 
 import Link from "next/link";
 import NavbarRight from "./NavbarRight";
