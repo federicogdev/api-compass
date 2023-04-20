@@ -32,7 +32,7 @@ import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
 const schema = z.object({
-  username: z
+  name: z
     .string()
     .min(4, { message: "Username must be at least 4 characters" })
     .regex(/^[a-zA-Z0-9_]+$/, {
@@ -45,7 +45,7 @@ const schema = z.object({
 });
 
 type RegisterFormInputs = {
-  username: string;
+  name: string;
   email: string;
   password: string;
 };
@@ -126,7 +126,26 @@ const RegisterModal = () => {
         <ModalCloseButton />
         <ModalBody py={5} bg="zinc.900">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <FormControl isInvalid={!!errors.email}>
+            <FormControl isInvalid={!!errors.name}>
+              <FormLabel fontSize="10pt" color="subtext">
+                Name
+              </FormLabel>
+              <Controller
+                name="name"
+                control={control}
+                // defaultValue=""
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    placeholder="John Doe"
+                    focusBorderColor="brand.700"
+                  />
+                )}
+              />
+              <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={!!errors.email} mt={4}>
               <FormLabel fontSize="10pt" color="subtext">
                 Email address
               </FormLabel>
@@ -143,25 +162,6 @@ const RegisterModal = () => {
                 )}
               />
               <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
-            </FormControl>
-
-            <FormControl isInvalid={!!errors.username} mt={4}>
-              <FormLabel fontSize="10pt" color="subtext">
-                Username
-              </FormLabel>
-              <Controller
-                name="username"
-                control={control}
-                // defaultValue=""
-                render={({ field }) => (
-                  <Input
-                    {...field}
-                    placeholder="John Doe"
-                    focusBorderColor="brand.700"
-                  />
-                )}
-              />
-              <FormErrorMessage>{errors.username?.message}</FormErrorMessage>
             </FormControl>
 
             <FormControl isInvalid={!!errors.password} mt={4}>

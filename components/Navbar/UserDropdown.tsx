@@ -28,7 +28,7 @@ const UserDropdown = () => {
       >
         <Avatar
           size={"sm"}
-          src={session?.user.image ? session.user.image : "/assets/user.png"}
+          src={session?.user.image ? session.user.image : "/images/user.png"}
         />
       </MenuButton>
       <MenuList alignItems={"center"} bg="zinc.900" padding={2}>
@@ -36,7 +36,7 @@ const UserDropdown = () => {
         <Center>
           <Avatar
             size={"2xl"}
-            src={session?.user.image ? session.user.image : "/assets/user.png"}
+            src={session?.user.image ? session.user.image : "/images/user.png"}
           />
         </Center>
         <br />
