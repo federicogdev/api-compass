@@ -84,7 +84,6 @@ enum UserRole {
 enum Cors {
   cors
   no_cors
-  unknown
 }
 
 enum Auth {
@@ -92,6 +91,7 @@ enum Auth {
   o_auth
   user_agent
   x_mashape_key
+  none
 }
 
 enum Https {
