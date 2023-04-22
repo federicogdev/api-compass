@@ -25,7 +25,7 @@ import NavLink from "./Navlink";
 
 const Links = [
   { label: "Explore", href: "/" },
-  { label: "Rankings", href: "/rankinks" },
+  { label: "Rankings", href: "/rankings" },
 ];
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
