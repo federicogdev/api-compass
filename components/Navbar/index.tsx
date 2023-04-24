@@ -32,7 +32,7 @@ const Navbar = () => {
 
   return (
     <Box bg="zinc.900" px={4}>
-      <Container maxW="container.lg">
+      <Container maxW="container.xl">
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
             size={"md"}
