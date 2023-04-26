@@ -6,9 +6,9 @@ interface Props {}
 
 const SearchPage = (props: Props) => {
   return (
-    <Flex>
+    <Flex direction={{ base: "column", md: "row" }}>
       <Filters />
-      <Box flex="7" />
+      <Box flex={{ base: 1, md: "7" }} />
     </Flex>
   );
 };

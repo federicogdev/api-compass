@@ -71,7 +71,13 @@ const Filters = (props: Props) => {
   };
 
   return (
-    <Stack flex="2" p={4} spacing={4} bg="zinc.900" borderRadius={6}>
+    <Stack
+      flex={{ base: 1, md: "2" }}
+      p={4}
+      spacing={4}
+      bg="zinc.900"
+      borderRadius={6}
+    >
       <Flex justifyContent="space-between">
         <Text fontWeight={700}>Filter results</Text>
         <Text onClick={() => router.push("/search")} cursor="pointer">
