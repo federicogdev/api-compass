@@ -1,5 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/libs/prisma";
+import { Auth, Cors, Https, Paid } from "@prisma/client";
+
+type Sort = "desc" | "asc";
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,7 +14,43 @@ export default async function handler(
 
   try {
     if (req.method === "GET") {
+      const {
+        query,
+        type,
+        cors,
+        auth,
+        protocol,
+        page = "1",
+        perPage = "10",
+        sort = "desc",
+      } = req.query;
+
+      if (typeof query !== "string") {
+        throw new Error("Invalid request");
+      }
+
       const posts = await prisma.post.findMany({
+        where: {
+          OR: [
+            {
+              title: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+            {
+              description: {
+                contains: query,
+                mode: "insensitive",
+              },
+            },
+          ],
+          cors: !cors || cors === "all" ? undefined : (cors as Cors),
+          paid: !type || type === "all" ? undefined : (type as Paid),
+          auth: !auth || auth === "all" ? undefined : (auth as Auth),
+          https:
+            !protocol || protocol === "all" ? undefined : (protocol as Https),
+        },
         include: {
           user: {
             select: {
@@ -23,7 +62,9 @@ export default async function handler(
           },
           comments: true,
         },
-        orderBy: { createdAt: "desc" },
+        skip: (Number(page) - 1) * Number(perPage),
+        take: Number(perPage),
+        orderBy: { createdAt: sort as Sort },
       });
 
       return res.status(200).json(posts);

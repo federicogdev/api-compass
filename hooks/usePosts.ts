@@ -3,9 +3,9 @@ import fetcher from "@/libs/fetcher";
 import { Post } from "@prisma/client";
 import { PostWithUser } from "@/types";
 
-const usePosts = () => {
+const usePosts = (uri: string) => {
   const { data, error, isLoading, mutate } = useSWR<PostWithUser[]>(
-    "/api/posts",
+    uri,
     fetcher
   );
 

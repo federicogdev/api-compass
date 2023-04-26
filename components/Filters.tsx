@@ -183,8 +183,8 @@ const Filters = (props: Props) => {
             </Radio>
             <Radio
               size="md"
-              name="type"
-              value="http"
+              name="protocol"
+              value="no_https"
               colorScheme="brand"
               onChange={protocolHandler}
             >
@@ -196,7 +196,7 @@ const Filters = (props: Props) => {
 
       <Stack>
         <Text color="subtext" fontWeight={700}>
-          CORS
+          Cross-Origin Resource Sharing
         </Text>
         <RadioGroup value={cors as string}>
           <Stack>
