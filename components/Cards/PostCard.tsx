@@ -1,22 +1,28 @@
 import { PostWithUser } from "@/types";
 import {
-  Box,
-  Stack,
-  Text,
-  Flex,
-  Tag,
+  getAuthTagColor,
+  getCorsTagColor,
+  getHttpsTagColor,
+  getPaidTagColor,
+} from "@/util/getTagColors";
+import {
+  getAuthTagLabel,
+  getCorsTagLabel,
+  getHttpsTagLabel,
+} from "@/util/getTagLabel";
+import {
   Avatar,
-  VStack,
+  Box,
+  Flex,
+  Stack,
+  Tag,
   TagLabel,
-  TagLeftIcon,
+  Text,
 } from "@chakra-ui/react";
-import Link from "next/link";
-import React from "react";
-import { AiOutlineHeart, AiOutlineMessage } from "react-icons/ai";
 import { formatDistanceToNowStrict } from "date-fns";
-import { MdSettings } from "react-icons/md";
-import { Cors } from "@prisma/client";
-import { getCorsTagColor } from "@/util/getTagColors";
+import Link from "next/link";
+import { AiOutlineHeart, AiOutlineMessage } from "react-icons/ai";
+
 type PostCardProps = {
   post: PostWithUser;
 };
@@ -35,7 +41,7 @@ const PostCard = ({ post }: PostCardProps) => {
     >
       <Flex align="center" justifyContent="space-between">
         <Box>
-          <Text fontSize="2xl" fontWeight="700" flex={5}>
+          <Text fontSize="2xl" fontWeight="700" flex={2}>
             {post.title}
           </Text>
           <Text color="subtext" fontSize="sm">
@@ -57,23 +63,27 @@ const PostCard = ({ post }: PostCardProps) => {
       </Flex>
 
       <Flex align="center" justifyContent="space-between">
-        <Stack flex={5}>
+        <Stack flex={2}>
           <Flex flexWrap="nowrap">
-            <Tag colorScheme="green" mr={1}>
-              {post.auth}
+            <Tag colorScheme={getAuthTagColor(post.auth)} mr={1}>
+              {getAuthTagLabel(post.auth)}
             </Tag>
             <Tag colorScheme={getCorsTagColor(post.cors)} mr={1}>
-              {post.cors}
+              {getCorsTagLabel(post.cors)}
             </Tag>
-            <Tag colorScheme="orange" mr={1}>
+            <Tag colorScheme={getPaidTagColor(post.paid)} mr={1}>
               {post.paid}
             </Tag>
-            <Tag colorScheme="blue">{post.https}</Tag>
+            <Tag colorScheme={getHttpsTagColor(post.https)}>
+              {getHttpsTagLabel(post.https)}
+            </Tag>
           </Flex>
 
           <Flex flexWrap="nowrap">
             {post.tags.map((tag) => (
-              <Tag mr={1}>{tag}</Tag>
+              <Tag mr={1}>
+                <TagLabel color="subtext">{tag}</TagLabel>
+              </Tag>
             ))}
           </Flex>
         </Stack>
