@@ -15,36 +15,33 @@ export default async function handler(
   try {
     if (req.method === "GET") {
       const {
-        query,
+        query = "",
         type,
         cors,
         auth,
         protocol,
         page = "1",
-        perPage = "10",
+        perPage = "1",
         sort = "desc",
       } = req.query;
-
-      if (typeof query !== "string") {
-        throw new Error("Invalid request");
-      }
 
       const posts = await prisma.post.findMany({
         where: {
           OR: [
             {
               title: {
-                contains: query,
+                contains: query as string,
                 mode: "insensitive",
               },
             },
             {
               description: {
-                contains: query,
+                contains: query as string,
                 mode: "insensitive",
               },
             },
           ],
+          // isApproved: true,
           cors: !cors || cors === "all" ? undefined : (cors as Cors),
           paid: !type || type === "all" ? undefined : (type as Paid),
           auth: !auth || auth === "all" ? undefined : (auth as Auth),

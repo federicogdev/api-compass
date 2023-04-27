@@ -1,3 +1,4 @@
+import useSearchFilters from "@/hooks/useSearchFilters";
 import {
   Text,
   Flex,
@@ -12,63 +13,76 @@ import React, { ChangeEvent } from "react";
 
 interface Props {}
 
-interface FilterSearchProps {
-  searchQuery?: string;
-  type?: string;
-  protocol?: string;
-  cors?: string;
-  auth?: string;
-  page?: number;
-}
+// interface FilterSearchProps {
+//   searchQuery?: string;
+//   type?: string;
+//   protocol?: string;
+//   cors?: string;
+//   auth?: string;
+//   page?: number;
+// }
 
 const Filters = (props: Props) => {
+  const {
+    authHandler,
+    corsHandler,
+    filterSearch,
+    protocolHandler,
+    typeHandler,
+    auth,
+    cors,
+    page,
+    protocol,
+    query,
+    type,
+  } = useSearchFilters();
   const router = useRouter();
 
-  const {
-    query,
-    type = "all",
-    protocol = "all",
-    cors = "all",
-    auth = "all",
-    page = 1,
-  } = router.query;
+  // const {
+  //   query,
+  //   type = "all",
+  //   protocol = "all",
+  //   cors = "all",
+  //   auth = "all",
+  //   page = 1,
+  // } = router.query;
 
-  const filterSearch = ({
-    type,
-    protocol,
-    cors,
-    auth,
-    page,
-  }: FilterSearchProps) => {
-    const { query } = router;
+  // const filterSearch = ({
+  //   type,
+  //   protocol,
+  //   cors,
+  //   auth,
+  //   page,
+  // }: FilterSearchProps) => {
+  //   const { query } = router;
 
-    if (page) query.page = page.toString();
+  //   if (page) query.page = page.toString();
 
-    if (type) query.type = type;
-    if (protocol) query.protocol = protocol;
-    if (cors) query.cors = cors;
-    if (auth) query.auth = auth;
+  //   if (type) query.type = type;
+  //   if (protocol) query.protocol = protocol;
+  //   if (cors) query.cors = cors;
+  //   if (auth) query.auth = auth;
 
-    router.push({
-      pathname: router.pathname,
-      query: query,
-    });
-  };
+  //   router.push({
+  //     pathname: router.pathname,
+  //     query: query,
+  //   });
+  // };
 
-  const typeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    filterSearch({ type: e.target.value });
-  };
-  const authHandler = (e: ChangeEvent<HTMLSelectElement>) => {
-    filterSearch({ auth: e.target.value });
-  };
+  // const typeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  //   filterSearch({ type: e.target.value });
+  // };
+  // const authHandler = (e: ChangeEvent<HTMLSelectElement>) => {
+  //   filterSearch({ auth: e.target.value });
+  // };
 
-  const protocolHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    filterSearch({ protocol: e.target.value });
-  };
+  // const protocolHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  //   filterSearch({ protocol: e.target.value });
+  // };
 
-  const corsHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    filterSearch({ cors: e.target.value });
-  };
+  // const corsHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  //   filterSearch({ cors: e.target.value });
+  // };
 
   return (
     <Stack

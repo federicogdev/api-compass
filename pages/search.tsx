@@ -1,4 +1,5 @@
 import Filters from "@/components/Filters";
+import Pagination from "@/components/Pagination";
 import usePosts from "@/hooks/usePosts";
 import { Box, Flex, Text, Heading } from "@chakra-ui/react";
 import { useRouter } from "next/router";
@@ -14,9 +15,10 @@ const SearchPage = (props: Props) => {
   const auth = query.auth || "";
   const protocol = query.protocol || "";
   const type = query.type || "";
+  const page = query.page || 1;
 
   const { data, isLoading, error, mutate } = usePosts(
-    `/api/posts?query=${q}&cors=${cors}&auth=${auth}&type=${type}&protocol=${protocol}`
+    `/api/posts?query=${q}&cors=${cors}&auth=${auth}&type=${type}&protocol=${protocol}&page=${page}`
   );
   return (
     <Flex direction={{ base: "column", md: "row" }}>
@@ -32,6 +34,8 @@ const SearchPage = (props: Props) => {
             <Text>{el.cors}</Text>
           </Box>
         ))}
+
+        <Pagination />
       </Box>
     </Flex>
   );
