@@ -49,6 +49,7 @@ model Account {
 
 model Post {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  uri         String
   title       String
   description String?
   cors        Cors?

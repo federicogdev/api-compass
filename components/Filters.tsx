@@ -11,9 +11,11 @@ import {
 import { useRouter } from "next/router";
 import React, { ChangeEvent } from "react";
 
-interface Props {}
+interface Props {
+  totalResults: number;
+}
 
-const Filters = (props: Props) => {
+const Filters = ({ totalResults = 0 }: Props) => {
   const {
     authHandler,
     corsHandler,
@@ -31,7 +33,7 @@ const Filters = (props: Props) => {
 
   return (
     <Stack
-      flex={{ base: 1, md: "2" }}
+      flex={{ base: 1, md: 2 }}
       p={4}
       spacing={4}
       bg="zinc.900"
@@ -49,7 +51,7 @@ const Filters = (props: Props) => {
 
       <Divider />
 
-      <Text fontWeight={700}>Results: 0</Text>
+      <Text fontWeight={700}>Results: {totalResults}</Text>
 
       <Stack>
         <Text color="subtext" fontWeight={700}>
