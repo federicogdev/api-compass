@@ -13,19 +13,19 @@ const SearchPage = (props: Props) => {
   const q = query.query || "";
   const cors = query.cors || "";
   const auth = query.auth || "";
-  const protocol = query.protocol || "";
-  const type = query.type || "";
+  const https = query.https || "";
+  const paid = query.paid || "";
   const page = query.page || 1;
 
   const { data, isLoading, error, mutate } = usePosts(
-    `/api/posts?query=${q}&cors=${cors}&auth=${auth}&type=${type}&protocol=${protocol}&page=${page}`
+    `/api/posts?query=${q}&cors=${cors}&auth=${auth}&paid=${paid}&https=${https}&page=${page}`
   );
   return (
     <Flex direction={{ base: "column", md: "row" }}>
       <Filters />
       <Box flex={{ base: 1, md: "7" }}>
-        <Heading>{q}</Heading>
-        {data?.map((el) => (
+        <Heading>{data?.count}</Heading>
+        {data?.posts.map((el) => (
           <Box>
             <Text>{el.title}</Text>
             <Text>{el.auth}</Text>
@@ -35,7 +35,9 @@ const SearchPage = (props: Props) => {
           </Box>
         ))}
 
-        <Pagination />
+        {/* {data?.pages && data?.count && ( */}
+        <Pagination totalPages={100} count={1000} />
+        {/* )} */}
       </Box>
     </Flex>
   );

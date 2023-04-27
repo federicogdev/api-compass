@@ -13,76 +13,21 @@ import React, { ChangeEvent } from "react";
 
 interface Props {}
 
-// interface FilterSearchProps {
-//   searchQuery?: string;
-//   type?: string;
-//   protocol?: string;
-//   cors?: string;
-//   auth?: string;
-//   page?: number;
-// }
-
 const Filters = (props: Props) => {
   const {
     authHandler,
     corsHandler,
     filterSearch,
-    protocolHandler,
-    typeHandler,
+    httpsHandler,
+    paidHandler,
     auth,
     cors,
     page,
-    protocol,
+    https,
     query,
-    type,
+    paid,
   } = useSearchFilters();
   const router = useRouter();
-
-  // const {
-  //   query,
-  //   type = "all",
-  //   protocol = "all",
-  //   cors = "all",
-  //   auth = "all",
-  //   page = 1,
-  // } = router.query;
-
-  // const filterSearch = ({
-  //   type,
-  //   protocol,
-  //   cors,
-  //   auth,
-  //   page,
-  // }: FilterSearchProps) => {
-  //   const { query } = router;
-
-  //   if (page) query.page = page.toString();
-
-  //   if (type) query.type = type;
-  //   if (protocol) query.protocol = protocol;
-  //   if (cors) query.cors = cors;
-  //   if (auth) query.auth = auth;
-
-  //   router.push({
-  //     pathname: router.pathname,
-  //     query: query,
-  //   });
-  // };
-
-  // const typeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-  //   filterSearch({ type: e.target.value });
-  // };
-  // const authHandler = (e: ChangeEvent<HTMLSelectElement>) => {
-  //   filterSearch({ auth: e.target.value });
-  // };
-
-  // const protocolHandler = (e: ChangeEvent<HTMLInputElement>) => {
-  //   filterSearch({ protocol: e.target.value });
-  // };
-
-  // const corsHandler = (e: ChangeEvent<HTMLInputElement>) => {
-  //   filterSearch({ cors: e.target.value });
-  // };
 
   return (
     <Stack
@@ -94,7 +39,10 @@ const Filters = (props: Props) => {
     >
       <Flex justifyContent="space-between">
         <Text fontWeight={700}>Filter results</Text>
-        <Text onClick={() => router.push("/search")} cursor="pointer">
+        <Text
+          onClick={() => router.push(`/search?query=${query}`)}
+          cursor="pointer"
+        >
           Clear all
         </Text>
       </Flex>
@@ -107,43 +55,43 @@ const Filters = (props: Props) => {
         <Text color="subtext" fontWeight={700}>
           Type
         </Text>
-        <RadioGroup value={type as string}>
+        <RadioGroup value={paid as string}>
           <Stack>
             <Radio
               size="md"
-              name="type"
+              name="paid"
               colorScheme="brand"
-              checked={type === "all"}
-              onChange={typeHandler}
+              checked={paid === "all"}
+              onChange={paidHandler}
               value="all"
             >
               All
             </Radio>
             <Radio
               size="md"
-              name="type"
+              name="paid"
               color="red.700"
               value="free"
-              onChange={typeHandler}
+              onChange={paidHandler}
             >
               Free
             </Radio>
 
             <Radio
               size="md"
-              name="type"
+              name="paid"
               colorScheme="brand"
               value="subscription"
-              onChange={typeHandler}
+              onChange={paidHandler}
             >
               Subscription
             </Radio>
             <Radio
               size="md"
-              name="type"
+              name="paid"
               value="paid"
               colorScheme="brand"
-              onChange={typeHandler}
+              onChange={paidHandler}
             >
               Paid
             </Radio>
@@ -163,7 +111,7 @@ const Filters = (props: Props) => {
         >
           <option value="all">All</option>
           <option value="api_key">API Key</option>
-          <option value="o_auth">O Auth</option>
+          <option value="o_auth">OAuth</option>
           <option value="user_agent">User Agent</option>
           <option value="x_mashape_key">Mashape Key</option>
           <option value="none">No Auth</option>
@@ -174,33 +122,33 @@ const Filters = (props: Props) => {
         <Text color="subtext" fontWeight={700}>
           Protocol
         </Text>
-        <RadioGroup value={protocol as string}>
+        <RadioGroup value={https as string}>
           <Stack>
             <Radio
               size="md"
-              name="protocol"
+              name="https"
               colorScheme="brand"
-              checked={protocol === "all"}
-              onChange={protocolHandler}
+              checked={https === "all"}
+              onChange={httpsHandler}
               value="all"
             >
               All
             </Radio>
             <Radio
               size="md"
-              name="protocol"
+              name="https"
               colorScheme="brand"
               value="https"
-              onChange={protocolHandler}
+              onChange={httpsHandler}
             >
               HTTPS
             </Radio>
             <Radio
               size="md"
-              name="protocol"
+              name="https"
               value="no_https"
               colorScheme="brand"
-              onChange={protocolHandler}
+              onChange={httpsHandler}
             >
               HTTP
             </Radio>

@@ -2,8 +2,8 @@ import { useRouter } from "next/router";
 import { ChangeEvent } from "react";
 
 interface SearchFilter {
-  type?: string;
-  protocol?: string;
+  paid?: string;
+  https?: string;
   cors?: string;
   auth?: string;
   page?: number;
@@ -14,20 +14,20 @@ const useSearchFilters = () => {
 
   const {
     query,
-    type = "all",
-    protocol = "all",
+    paid = "all",
+    https = "all",
     cors = "all",
     auth = "all",
     page = 1,
   } = router.query;
 
-  const filterSearch = ({ type, protocol, cors, auth, page }: SearchFilter) => {
+  const filterSearch = ({ paid, https, cors, auth, page }: SearchFilter) => {
     const { query } = router;
 
     if (page) query.page = page.toString();
 
-    if (type) query.type = type;
-    if (protocol) query.protocol = protocol;
+    if (paid) query.paid = paid;
+    if (https) query.https = https;
     if (cors) query.cors = cors;
     if (auth) query.auth = auth;
 
@@ -41,15 +41,15 @@ const useSearchFilters = () => {
     );
   };
 
-  const typeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    filterSearch({ type: e.target.value });
+  const paidHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    filterSearch({ paid: e.target.value });
   };
   const authHandler = (e: ChangeEvent<HTMLSelectElement>) => {
     filterSearch({ auth: e.target.value });
   };
 
-  const protocolHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    filterSearch({ protocol: e.target.value });
+  const httpsHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    filterSearch({ https: e.target.value });
   };
 
   const corsHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -62,13 +62,13 @@ const useSearchFilters = () => {
 
   return {
     filterSearch,
-    typeHandler,
+    paidHandler,
     authHandler,
-    protocolHandler,
+    httpsHandler,
     corsHandler,
     query,
-    type,
-    protocol,
+    paid,
+    https,
     cors,
     auth,
     page,
