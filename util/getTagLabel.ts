@@ -34,8 +34,7 @@ export const getHttpsTagLabel = (https: Https | null) => {
       return "https";
     case Https.no_https:
       return "http";
-
     default:
-      return "brand";
+      return "";
   }
 };
