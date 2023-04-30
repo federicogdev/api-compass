@@ -85,6 +85,7 @@ enum UserRole {
 enum Cors {
   cors
   no_cors
+  unknown
 }
 
 enum Auth {
