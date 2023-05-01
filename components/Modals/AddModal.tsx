@@ -1,7 +1,6 @@
 import useAddModal from "@/hooks/useAddModal";
 import {
   Button,
-  Flex,
   FormControl,
   FormErrorMessage,
   FormHelperText,
@@ -15,20 +14,23 @@ import {
   ModalOverlay,
   Radio,
   RadioGroup,
+  Select,
   Stack,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import React from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { Auth, Cors, Https, Paid } from "@prisma/client";
+import axios from "axios";
 
 const schema = z.object({
   title: z.string().min(6, { message: "Title must be at least 6 characters" }),
   uri: z.string().min(12, { message: "URL must be at least 12 characters" }),
   description: z.string().optional(),
-  tags: z.string(),
+  tags: z.string().optional(),
   https: z.nativeEnum(Https).optional(),
   cors: z.nativeEnum(Cors).optional(),
   auth: z.nativeEnum(Auth).optional(),
@@ -61,8 +63,30 @@ const AddModal = (props: Props) => {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<CreatePostFormInputs> = (data) => {
-    alert(JSON.stringify(data));
+  const toast = useToast();
+
+  const onSubmit: SubmitHandler<CreatePostFormInputs> = async (data) => {
+    try {
+      await axios.post("/api/posts", data);
+
+      toast({
+        title: "Created a new post!",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+
+      reset();
+
+      addModal.onClose();
+    } catch (error) {
+      toast({
+        title: "Error",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
   };
 
   const onClose = () => {
@@ -148,6 +172,34 @@ const AddModal = (props: Props) => {
               <FormErrorMessage>{errors.cors?.message}</FormErrorMessage>
             </FormControl>
 
+            <FormControl isInvalid={!!errors.paid} mt={3}>
+              <Controller
+                name="paid"
+                control={control}
+                // defaultValue=""
+                render={({ field: { value, onChange } }) => (
+                  <RadioGroup value={value} onChange={onChange}>
+                    <Stack direction="row" alignItems="center">
+                      <FormLabel pt={2} fontSize="11pt" color="subtext">
+                        Payment:{" "}
+                      </FormLabel>
+                      <Radio size="md" value={Paid.free}>
+                        Free
+                      </Radio>
+                      <Radio size="md" value={Paid.paid}>
+                        Paid
+                      </Radio>
+                      <Radio size="md" value={Paid.subscription}>
+                        Subscription
+                      </Radio>
+                    </Stack>
+                  </RadioGroup>
+                )}
+              />
+
+              <FormErrorMessage>{errors.cors?.message}</FormErrorMessage>
+            </FormControl>
+
             <FormControl isInvalid={!!errors.tags} mt={3}>
               <FormLabel fontSize="11pt" color="subtext">
                 Tags{" "}
@@ -194,6 +246,34 @@ const AddModal = (props: Props) => {
               />
 
               <FormErrorMessage>{errors.https?.message}</FormErrorMessage>
+            </FormControl>
+
+            <FormControl isInvalid={!!errors.auth} mt={3}>
+              <Controller
+                name="auth"
+                control={control}
+                // defaultValue=""
+                render={({ field: { value, onChange } }) => (
+                  <Stack direction="row" alignItems="center">
+                    <FormLabel pt={2} fontSize="11pt" color="subtext">
+                      Auth:{" "}
+                    </FormLabel>
+                    <Select
+                      value={value}
+                      onChange={onChange}
+                      placeholder="Select a value"
+                    >
+                      <option value={Auth.none}>No Auth</option>
+
+                      <option value={Auth.api_key}>API Key</option>
+                      <option value={Auth.o_auth}>OAuth</option>
+                      <option value={Auth.user_agent}>User Agent</option>
+                      <option value={Auth.x_mashape_key}>Mashape Key</option>
+                    </Select>
+                  </Stack>
+                )}
+              />
+              <FormErrorMessage>{errors.auth?.message}</FormErrorMessage>
             </FormControl>
 
             <FormControl isInvalid={!!errors.description} mt={3}>

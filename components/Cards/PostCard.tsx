@@ -65,18 +65,28 @@ const PostCard = ({ post }: PostCardProps) => {
       <Flex align="center" justifyContent="space-between">
         <Stack flex={2}>
           <Flex flexWrap="nowrap">
-            <Tag colorScheme={getAuthTagColor(post.auth)} mr={1}>
-              {getAuthTagLabel(post.auth)}
-            </Tag>
-            <Tag colorScheme={getCorsTagColor(post.cors)} mr={1}>
-              {getCorsTagLabel(post.cors)}
-            </Tag>
-            <Tag colorScheme={getPaidTagColor(post.paid)} mr={1}>
-              {post.paid}
-            </Tag>
-            <Tag colorScheme={getHttpsTagColor(post.https)}>
-              {getHttpsTagLabel(post.https)}
-            </Tag>
+            {post.auth && (
+              <Tag colorScheme={getAuthTagColor(post.auth)} mr={1}>
+                {getAuthTagLabel(post.auth)}
+              </Tag>
+            )}
+
+            {post.cors && (
+              <Tag colorScheme={getCorsTagColor(post.cors)} mr={1}>
+                {getCorsTagLabel(post.cors)}
+              </Tag>
+            )}
+
+            {post.paid && (
+              <Tag colorScheme={getPaidTagColor(post.paid)} mr={1}>
+                {post.paid}
+              </Tag>
+            )}
+            {post.https && (
+              <Tag colorScheme={getHttpsTagColor(post.https)}>
+                {getHttpsTagLabel(post.https)}
+              </Tag>
+            )}
           </Flex>
 
           <Flex flexWrap="nowrap">

@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/libs/prisma";
 import { Auth, Cors, Https, Paid } from "@prisma/client";
+import serverAuth from "@/libs/serverAuth";
 
 type Sort = "desc" | "asc";
 
@@ -13,6 +14,29 @@ export default async function handler(
   }
 
   try {
+    if (req.method === "POST") {
+      const { currentUser } = await serverAuth(req, res);
+
+      const { title, description, tags, cors, auth, https, paid, uri } =
+        req.body;
+
+      const post = await prisma.post.create({
+        data: {
+          uri,
+          description,
+          cors,
+          auth,
+          https,
+          paid,
+          tags: tags.split(","),
+          title,
+          userId: currentUser.id,
+        },
+      });
+
+      return res.status(200).json(post);
+    }
+
     if (req.method === "GET") {
       const {
         query = "",

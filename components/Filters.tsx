@@ -8,6 +8,7 @@ import {
   RadioGroup,
   Select,
 } from "@chakra-ui/react";
+import { Auth } from "@prisma/client";
 import { useRouter } from "next/router";
 import React, { ChangeEvent } from "react";
 
@@ -112,11 +113,11 @@ const Filters = ({ totalResults = 0 }: Props) => {
           onChange={authHandler}
         >
           <option value="all">All</option>
-          <option value="api_key">API Key</option>
-          <option value="o_auth">OAuth</option>
-          <option value="user_agent">User Agent</option>
-          <option value="x_mashape_key">Mashape Key</option>
-          <option value="none">No Auth</option>
+          <option value={Auth.none}>No Auth</option>
+          <option value={Auth.api_key}>API Key</option>
+          <option value={Auth.o_auth}>OAuth</option>
+          <option value={Auth.user_agent}>User Agent</option>
+          <option value={Auth.x_mashape_key}>Mashape Key</option>
         </Select>
       </Stack>
 
