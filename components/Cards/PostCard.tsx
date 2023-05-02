@@ -50,14 +50,14 @@ const PostCard = ({ post }: PostCardProps) => {
         </Box>
 
         <Flex flex={1} alignItems="center" justify="flex-end" color="subtext">
-          <Flex alignItems="center" fontSize={22} mr={2}>
-            <AiOutlineHeart size={22} />
-            <Text ml="2">0</Text>
+          <Flex alignItems="center" fontSize={18} mr={2}>
+            <AiOutlineHeart size={18} />
+            <Text ml="2">{post.likedIds.length}</Text>
           </Flex>
 
-          <Flex alignItems="center" fontSize={22}>
-            <AiOutlineMessage size={22} />
-            <Text ml="2">0</Text>
+          <Flex alignItems="center" fontSize={18}>
+            <AiOutlineMessage size={18} />
+            <Text ml="2">{post.comments.length}</Text>
           </Flex>
         </Flex>
       </Flex>
